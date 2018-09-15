@@ -5,8 +5,14 @@
 {% endif %}
 
 
-<form method ="POST" action="{% url 'login' %}">
+<form method ="POST" action="{% url 'accounts:login' %}">
     {% csrf_token %}
+    
+    <!-- if there's a next on login page, send hidden form -->
+    {% if request.GET.next %}
+    <input type="hidden" name="next" value={{ request.GET.next }} />
+    {% endif %}
+
     <label for "username">Username</label>
         <input type="text" name="username" />
     <br />
