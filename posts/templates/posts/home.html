@@ -1,0 +1,20 @@
+<h1>Reddit</h1>
+<a href="{% url 'posts:create' %}">New Post</a>
+
+<br />
+<br />
+
+{% for post in posts.all %}
+<a href="{{ post.site_url }}"> {{ post.title }} </a>
+<br />
+{{ post.created_at }}
+<br />
+{{ post.content }}
+<br />
+<img src="{{ post.image }}" /> 
+<br />
+<hr>
+
+
+{% endfor %}
+
