@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 
 def signup(request):
     if request.method == 'POST':
@@ -35,3 +35,7 @@ def loginview(request):
             return render(request,'accounts/login.html', {'Error':'Username/Passwords didn\'t match. Please try again.'})
     else:
         return render(request,'accounts/login.html')
+
+def logoutview(request):
+    if request.method == 'POST':
+        logout(request)
