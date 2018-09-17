@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 from .models import Post
+from django.contrib.auth.models import User
+
 
 @login_required
 def create(request):
@@ -23,7 +25,7 @@ def create(request):
         return render(request, 'posts/create.html')
 
 def home(request):
-    post = Post.objects.order_by('votes_total')
+    post = Post.objects.order_by('-votes_total')
     return render(request, 'posts/home.html', {'posts':post})
 
 def upvote(request, pk):
@@ -40,3 +42,10 @@ def downvote(request, pk):
         post.votes_total -= 1 
         post.save()
         return redirect('home')
+
+def userposts(request, fk):
+    posts = Post.objects.filter(user__id=fk).order_by('-votes_total')
+    print(fk)
+    user = User.objects.get(pk=fk)
+    return render(request,'posts/userposts.html', {'posts':posts,'user':user})
+  

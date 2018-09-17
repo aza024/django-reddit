@@ -30,7 +30,7 @@ def loginview(request):
             login(request, user)
             if 'next' in request.POST:
                 return redirect(request.POST['next'])
-            return render(request,'accounts/login.html', {'Error':'Login Successful'})
+            return redirect('home')
         else:
             return render(request,'accounts/login.html', {'Error':'Username/Passwords didn\'t match. Please try again.'})
     else:
@@ -39,3 +39,4 @@ def loginview(request):
 def logoutview(request):
     if request.method == 'POST':
         logout(request)
+        return redirect('home')

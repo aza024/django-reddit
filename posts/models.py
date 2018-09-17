@@ -15,5 +15,5 @@ class Post(models.Model):
     image = models.ImageField(default='')
     
 
-    # def pub_date_pretty(self):
-    #     return self.created_at.strftime('%b %e %Y')
+    def created_at_formatted(self):
+        return self.created_at.strftime('%b %e %Y')
