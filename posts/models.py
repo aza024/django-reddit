@@ -12,7 +12,7 @@ class Post(models.Model):
     created_at = models.DateTimeField(blank=True, null=True)
     user = models.ForeignKey(User, on_delete = models.CASCADE)
     votes_total = models.IntegerField(default=1)
-    image = models.ImageField(upload_to='images', blank=True)
+    image = models.FileField(upload_to='images', blank=True)
     
 
     def created_at_formatted(self):

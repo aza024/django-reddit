@@ -7,7 +7,7 @@
 
 <br />
 <br />
-
+<!-- Posts -->
 {% for post in posts.all %}
 <a href="#" onClick="document.getElementById('upvote{{ post.id }}').submit()"><span class="glyphicon glyphicon-triangle-top" aria-hidden="true"></span></a>
 {{ post.votes_total }} 
@@ -33,9 +33,16 @@
 <a class = "btn btn-primary" href="{% url 'posts:comment'  %}">Comment</a>
 
 <br />
+<h5>Comments</h5>
+
+{% for comments in Comments.all %}
+{{ comment.title }}
+{{ comment.content }}
+{% endfor %}
+
 <hr>
 
-
 {% endfor %}
+<!-- Comments -->
 
 {% endblock %}
