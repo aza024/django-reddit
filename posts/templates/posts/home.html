@@ -25,24 +25,29 @@
 <br />
 {{ post.created_at_formatted }} by <a href="{% url 'posts:userposts' post.user.id %}">{{ post.user.username }}</a>
 <br />
-{{ post.content }}
-<br />
 <img src="{{ post.image.url }}" width="250">
 <br />
+{{ post.content }}
+<br />
+
 <br />
 <a class = "btn btn-primary" href="{% url 'posts:comment'  %}">Comment</a>
 
 <br />
-<h5>Comments</h5>
 
-{% for comments in Comments.all %}
-{{ comment.title }}
-{{ comment.content }}
-{% endfor %}
 
 <hr>
 
 {% endfor %}
+
 <!-- Comments -->
+<h5>Comments</h5>
+{% for comment in posts.comments.all %}
+    <p>{{ comment.title }}</p>
+    <p>{{ comment.content }}</p>
+    <p>{{ comment.created_at }}</p>
+    {% empty %}
+        <p>FIRST COMMENT</p>
+{% endfor %}
 
 {% endblock %}

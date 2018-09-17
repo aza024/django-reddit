@@ -25,6 +25,7 @@ class Comment(models.Model):
     user = models.ForeignKey(User, on_delete = models.CASCADE)
     posts = models.ForeignKey(Post, on_delete= models.CASCADE, null=True)
     votes_total = models.IntegerField(default=1)
+  
 
 
     def created_at_formatted(self):
