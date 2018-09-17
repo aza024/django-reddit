@@ -49,3 +49,5 @@ def userposts(request, fk):
     user = User.objects.get(pk=fk)
     return render(request,'posts/userposts.html', {'posts':posts,'user':user})
   
+def comment(request, fk):
+    return redirect('home')
