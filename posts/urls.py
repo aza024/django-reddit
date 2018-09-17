@@ -1,6 +1,8 @@
 from django.urls import path
 from django.conf.urls import url
 from . import views
+from django.conf import settings 
+from django.conf.urls.static import static
 
 
 app_name = 'posts'
@@ -10,6 +12,6 @@ urlpatterns = [
     url(r'^(?P<pk>[0-9]+)/upvote', views.upvote, name='upvote'),
     url(r'^(?P<pk>[0-9]+)/downvote', views.downvote, name='downvote'),
     url(r'^user/(?P<fk>[0-9]+)', views.userposts, name='userposts'),
-    url(r'^(?P<pk>[0-9]+)/comment', views.comment, name='comment'),
-]
+    path('comment/', views.comment, name='comment'),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
     

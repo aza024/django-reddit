@@ -27,8 +27,10 @@
 <br />
 {{ post.content }}
 <br />
-<img src="{{ post.image.url }}" /> 
-<!-- <a class = "btn btn-primary" href="{% url 'comments:create' %}">Comment</a> -->
+<img src="{{ post.image.url }}" width="250">
+<br />
+<br />
+<a class = "btn btn-primary" href="{% url 'posts:comment'  %}">Comment</a>
 
 <br />
 <hr>

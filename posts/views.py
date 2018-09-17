@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
-from .models import Post
+from .models import Post, Comment
 from django.contrib.auth.models import User
 
 
@@ -45,9 +45,21 @@ def downvote(request, pk):
 
 def userposts(request, fk):
     posts = Post.objects.filter(user__id=fk).order_by('-votes_total')
-    print(fk)
     user = User.objects.get(pk=fk)
     return render(request,'posts/userposts.html', {'posts':posts,'user':user})
   
-def comment(request, fk):
-    return redirect('home')
+def comment(request):
+    if request.method == 'POST':
+        if request.POST['title'] and request.POST['content']: 
+            comment = Comment()
+            comment.title = request.POST['title']
+            comment.content = request.POST['content']
+            comment.created_at = timezone.datetime.now()
+            comment.user = request.user
+            comment.save()
+            return redirect('home')
+        else: 
+            # return render(request,'posts/comment.html',{'error':'Please fill out required fields.'})
+            return redirect('home')
+    else:
+        return render(request, 'posts/comment.html')
