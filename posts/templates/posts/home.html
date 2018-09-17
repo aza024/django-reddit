@@ -2,52 +2,58 @@
 
 {% block content %}
 
-<h1>Reddit</h1>
+<h1>r/aww</h1>
 <a class = "btn btn-primary" href="{% url 'posts:create' %}">New Post</a>
-
 <br />
 <br />
 <!-- Posts -->
 {% for post in posts.all %}
-<a href="#" onClick="document.getElementById('upvote{{ post.id }}').submit()"><span class="glyphicon glyphicon-triangle-top" aria-hidden="true"></span></a>
-{{ post.votes_total }} 
-<a href="#" onClick="document.getElementById('downvote{{ post.id }}').submit()"><span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span></a>
 
-<form id="upvote{{ post.id }}" method="POST" action="{% url 'posts:upvote' post.id %}">
-    {% csrf_token %}
-    <input type="hidden">
- </form> 
- <form id="downvote{{ post.id }}" method="POST" action="{% url 'posts:downvote' post.id %}">
-    {% csrf_token %}
-    <input type="hidden">
-</form>  - <a href="{{ post.site_url }}"> {{ post.title }} </a>
+    <a href="#" onClick="document.getElementById('upvote{{ post.id }}').submit()"><span class="glyphicon glyphicon-triangle-top" aria-hidden="true"></span></a>
+    {{ post.votes_total }} 
+    <a href="#" onClick="document.getElementById('downvote{{ post.id }}').submit()"><span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span></a>
 
-<br />
-{{ post.created_at_formatted }} by <a href="{% url 'posts:userposts' post.user.id %}">{{ post.user.username }}</a>
-<br />
-<img src="{{ post.image.url }}" width="250">
-<br />
-{{ post.content }}
-<br />
+    <form id="upvote{{ post.id }}" method="POST" action="{% url 'posts:upvote' post.id %}">
+        {% csrf_token %}
+        <input type="hidden">
+    </form> 
+    <form id="downvote{{ post.id }}" method="POST" action="{% url 'posts:downvote' post.id %}">
+        {% csrf_token %}
+        <input type="hidden">
+    </form>  - <a href="{{ post.site_url }}"> {{ post.title }} </a>
 
-<br />
-<a class = "btn btn-primary" href="{% url 'posts:comment'  %}">Comment</a>
+    <br />
+    {{ post.created_at_formatted }} by <a href="{% url 'posts:userposts' post.user.id %}">{{ post.user.username }}</a>
+    <br />
+    <img src="{{ post.image.url }}" width="250">
+    <br />
+    {{ post.content }}
+    <br />
 
-<br />
+    <br />
+    <a class = "btn btn-primary" href="{% url 'posts:comment'  %}">Comment</a>
+
+    <br />
 
 
+    <!-- not working - revisit -->
+    <h5>Comments</h5>
+    {% for comment in posts.all %}
+
+        <p>{{ comment.title }} by {{ comment.user }}</p>
+        <p>{{ comment.content }}</p>
+        <p>{{ comment.created_at }}</p>
+     
+        <hr>
+        {% empty %}
+            <p>FIRST COMMENT</p>
+    
+    {% endfor %}
 <hr>
 
 {% endfor %}
 
 <!-- Comments -->
-<h5>Comments</h5>
-{% for comment in posts.comments.all %}
-    <p>{{ comment.title }}</p>
-    <p>{{ comment.content }}</p>
-    <p>{{ comment.created_at }}</p>
-    {% empty %}
-        <p>FIRST COMMENT</p>
-{% endfor %}
+
 
 {% endblock %}
